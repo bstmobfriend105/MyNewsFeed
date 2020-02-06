@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyNewsFeed</string>
+    <string name="app_title">My News Feed</string>
+    <string name="forget_password"><u>Do you forget your pass?</u></string>
+    <string name="access_location">Allow \"My News Feed\" to access the location of this device?</string>
+    <string name="warning_location">You cannot continue if you do not accept location permissions for My News Feed</string>
+    <string name="dont_ask_again">Don\'t ask again</string>
+    <string name="your_location">Your Location</string>
+    <string name="international">International</string>
+    <string name="local">Local</string>
+</resources>
