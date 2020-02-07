@@ -7,19 +7,28 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AlertDialog
 import com.test.newsfeed.utils.FeedAdapter
 import kotlinx.android.synthetic.main.activity_feeds.*
-import com.test.newsfeed.unit.Feed
 import kotlinx.android.synthetic.main.dialog_accesslocation.view.*
 import android.content.SharedPreferences
+import com.test.newsfeed.apis.ApiData
+import com.test.newsfeed.apis.Model
+import android.util.Log
+import android.app.ProgressDialog
+
 
 class FeedsActivity : AppCompatActivity()  {
     private val DONT_ASK = "DONT_ASK"
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var loadingDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_feeds)
         locationSegment.setLocation(1)
+
+        loadingDialog = ProgressDialog(this)
+        loadingDialog.setMessage("Please wait...")
+        loadingDialog.setCancelable(false)
 
         sharedPref = getSharedPreferences(DONT_ASK, 0)
         if (!sharedPref.getBoolean(DONT_ASK, false)) {
@@ -34,15 +43,21 @@ class FeedsActivity : AppCompatActivity()  {
     }
 
     private fun loadFeedsList() {
-        var feedList = arrayListOf<Feed>()
-        for (id in 0 until 10) {
-            val feedItem = Feed()
-            feedItem.newsTitle = "News Title"
-            feedItem.newsBody = "News source"
-            feedItem.newsTime = "News time"
-            feedList.add(feedItem)
-        }
 
+        loadingDialog.show()
+        ApiData.apiData( object :ApiData.Response{
+            override fun data(data: Model.Result, status: Boolean) {
+                loadingDialog.hide()
+                if(status){
+                    val feeds:List<Model.Article> = data.articles
+                    updateFeedsList(feeds)
+                }
+            }
+        })
+
+    }
+
+    private fun updateFeedsList(feedList:List<Model.Article>) {
         val adapter = FeedAdapter(this, feedList)
         listViewFeeds.setAdapter(adapter)
     }

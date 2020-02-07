@@ -3,7 +3,14 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="160dp">
+
+    <ImageView
+        android:id="@+id/newsImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY">
+    </ImageView>
 
     <TextView
         android:id="@+id/newsTitle"
@@ -12,17 +19,8 @@
         android:layout_gravity="start|bottom"
         android:layout_marginLeft="40dp"
         android:layout_marginBottom="20dp"
-        android:textSize="24sp"
-        android:textStyle="bold" >
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary">
     </TextView>
 
-    <TextView
-        android:id="@+id/newsBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:textSize="18sp">
-    </TextView>
 </FrameLayout>
